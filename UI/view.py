@@ -30,28 +30,26 @@ class View:
         self.txt_titolo = ft.Text(value="Gestione Vendita Biciclette", size=30, weight=ft.FontWeight.BOLD)
 
         # Riga 1
-        self.dd_category = ft.Dropdown(label="Categoria", width=200) # TODO: Gestire il dropdown
+        self.dd_category = ft.Dropdown(label="Categoria", width=200, on_change = self.controller.handleChangeCategoria)
 
-        self.dp1 = ft.DatePicker(
-            on_change=lambda e: print(f"Giorno selezionato: {self.dp1.value}"),
-            on_dismiss=lambda e: print("Data non selezionata")
-        )
+        self.controller.popolaDropdown(self.dd_category)
+
+        self.dp1 = ft.DatePicker(on_change = self.controller.handleChangeDate, on_dismiss=lambda e: print("Data non selezionata"))
 
         self.page.overlay.append(self.dp1)
         self.pulsante_start_date = ft.ElevatedButton("Data Inizio",
                                           icon=ft.Icons.CALENDAR_MONTH,
                                           on_click=lambda _: self.page.open(self.dp1))
 
-        self.dp2 = ft.DatePicker(
-            on_change=lambda e: print(f"Giorno selezionato: {self.dp2.value}"),
-            on_dismiss=lambda e: print("Data non selezionata")
-        )
+        self.dp2 = ft.DatePicker(on_change = self.controller.handleChangeDate, on_dismiss=lambda e: print("Data non selezionata"))
+
         self.page.overlay.append(self.dp2)
         self.pulsante_end_date = ft.ElevatedButton("Data Fine",
                                           icon=ft.Icons.CALENDAR_MONTH,
                                           on_click=lambda _: self.page.open(self.dp2))
 
         self.controller.set_dates()
+
 
         self.pulsante_crea_grafo = ft.ElevatedButton(text="Crea Grafo", on_click=self.controller.handle_crea_grafo)
 
